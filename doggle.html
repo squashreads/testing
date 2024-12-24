@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto-Off Toggle with Background Change</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+        transition: background-color 0.4s ease;
+      }
+      .toggle-container {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+      }
+      .toggle-input {
+        display: none;
+      }
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 15px;
+      }
+      .toggle-slider::before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      .toggle-input:checked + .toggle-slider {
+        background-color: #ce3521;
+      }
+      .toggle-input:checked + .toggle-slider::before {
+        transform: translateX(30px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toggle-container">
+      <input type="checkbox" class="toggle-input" id="toggle" />
+      <label class="toggle-slider" for="toggle"></label>
+    </div>
+
+    <script>
+      const toggleInput = document.getElementById("toggle");
+      const body = document.body;
+
+      toggleInput.addEventListener("change", () => {
+        if (toggleInput.checked) {
+          // Change background to dark
+          body.style.backgroundColor = "#333";
+          body.style.color = "#fff";
+
+          // Automatically turn off and reset background after 2 seconds
+          setTimeout(() => {
+            toggleInput.checked = false;
+            body.style.backgroundColor = "#f4f4f4";
+            body.style.color = "#000";
+          }, 1000); // Adjust the timeout duration as needed
+        }
+      });
+    </script>
+  </body>
+</html>
